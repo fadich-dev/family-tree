@@ -1,15 +1,25 @@
-console.log('Server');
+console.log(new Date());
+console.info('Running server. . .');
+
+/**********************************************************************************************************************/
 
 var express = require('express');
 var app = express();
 
+var person = require('./models/person');
+
 
 app.get('/', function(req, res) {
-    res.send('hello world');
+    res.send("Tree");
+});
+
+app.get('/get/:id', function(req, res) {
+    res.send(JSON.stringify(person.get(req.params.id)));
 });
 
 
 app.all('*', function(req, res) {
+    res.statusCode = 404;
     res.send("Incorrect request");
 });
 

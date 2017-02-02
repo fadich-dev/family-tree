@@ -1,20 +1,20 @@
 {
   "name": "tree",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "family tree builder",
   "main": "server.js",
   "dependencies": {
     "express": "~4.14.1",
-    "nodemon": "~1.11.0"
+    "nodemon": "^1.11.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fadich/family-tree"
+    "url": "git+https://github.com/fadich/family-tree.git"
   },
   "keywords": [
     "family-tree"
@@ -23,5 +23,6 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/fadich/family-tree/issues"
-  }
+  },
+  "homepage": "https://github.com/fadich/family-tree#readme"
 }
