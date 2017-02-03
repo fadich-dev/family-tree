@@ -8,26 +8,39 @@ var app = express();
 
 var person = require('./models/person');
 
+var send      = function (message, data) {
+    return {
+        message: message,
+        data:    data
+    }
+};
 
 app.get('/', function(req, res) {
     res.send("Tree");
 });
 
 app.post('/person/:id', function(req, res) {
-    var send = JSON.stringify(person.get(req.params.id));
+    send = JSON.stringify(person.get(req.params.id));
     res.send(send);
 });
 
 app.post('/person/create', function(req, res) {
-    res.send(JSON.stringify(person.get(req.params.id)));
+    var person = person.get(req.params.id);
+    if (person.save()) {
+
+    }
+    var send = JSON.stringify();
+    res.send(send);
 });
 
 app.post('/person/:id/update', function(req, res) {
-    res.send(JSON.stringify(person.get(req.params.id)));
+    var send = JSON.stringify(person.get(req.params.id));
+    res.send(send);
 });
 
 app.delete('/person/:id/delete', function(req, res) {
-    res.send(JSON.stringify(person.get(req.params.id)));
+    var send = JSON.stringify(person.get(req.params.id));
+    res.send(send);
 });
 
 
