@@ -16,16 +16,20 @@ var send      = function (message, data) {
 };
 
 app.get('/', function(req, res) {
-    res.send("Tree");
+    var ww = JSON.stringify(person.get().setAttributes());
+    res.send("Tree " + ww);
 });
 
 app.post('/person/:id', function(req, res) {
-    send = JSON.stringify(person.get(req.params.id));
-    res.send(send);
+    res.type = "application/json";
+    res.send(send(
+        null,
+        {person: person.get(req.params.id)}
+    ));
 });
 
 app.post('/person/create', function(req, res) {
-    var person = person.get(req.params.id);
+    var person = person.get().setAttributes(req);
     if (person.save()) {
 
     }
