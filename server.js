@@ -45,6 +45,9 @@ app.post('/person/create', function(req, res) {
 
     var person = person.get().setAttributes(req);
     if (person.save()) {
+
+        // TODO: do not forget about photo!
+
         res.send(send({success: "Node successfully created"}));
         res.end();
     }
