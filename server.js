@@ -7,21 +7,32 @@ var express = require('express');
 var app = express();
 
 var person = require('./models/person');
+var tree   = require('./models/tree');
 
+/**
+ * @param message     The message information about an action result.
+ *                    Can be accompanied by a key like: success; info; notice; error.
+ * @param data        Data to be transferred to client.
+ * @returns {{message: ({}), data: ({})}}
+ */
 var send = function (message, data) {
     return {
-        message: message || null,
+        message: message || {},
         data:    data    || {}
     }
 };
 
 app.get('/', function(req, res) {
-    var ww = JSON.stringify(person.get().setAttributes());
-    res.send("Tree " + ww);
+
+    res.type = "application/json";
+
+    res.send(send(null, {tree: tree.getTree()}));
 });
 
 app.post('/person/:id', function(req, res) {
+
     res.type = "application/json";
+
     res.send(send(
         null,
         {person: person.get(req.params.id)}
@@ -29,30 +40,60 @@ app.post('/person/:id', function(req, res) {
 });
 
 app.post('/person/create', function(req, res) {
-    var person = person.get().setAttributes(req);
+
     res.type = "application/json";
+
+    var person = person.get().setAttributes(req);
     if (person.save()) {
-        res.send(send("Node successfully saved"));
+        res.send(send({success: "Node successfully created"}));
         res.end();
     }
-    var send = JSON.stringify();
-    res.send(send);
+
+    res.statusCode = 400;
+    res.send(send(
+        {warning: "Node cannot be created. Maybe, data is invalid. Check it for the correctness and try again"},
+        {error: person.getErrors()}
+    ));
 });
 
 app.post('/person/:id/update', function(req, res) {
-    var send = JSON.stringify(person.get(req.params.id));
-    res.send(send);
+
+    res.type = "application/json";
+
+    var person = person.get(req.id).setAttributes(req);
+    if (person.save()) {
+        res.send(send({success: "Node successfully updated"}));
+        res.end();
+    }
+
+    res.statusCode = 400;
+    res.send(send(
+        {warning: "Node cannot be updated. Maybe, data is invalid. Check it for the correctness and try again"},
+        {error: person.getErrors()}
+    ));
 });
 
 app.delete('/person/:id/delete', function(req, res) {
-    var send = JSON.stringify(person.get(req.params.id));
-    res.send(send);
+
+    res.type = "application/json";
+
+    var person = person.get(req.id);
+    if (person.delete()) {
+        res.send(send({success: "Node (branch) successfully deleted"}));
+        res.end();
+    }
+
+    res.statusCode = 400;
+    res.send(send(
+        {warning: "Node cannot be updated. Maybe, data is invalid. Check it for the correctness and try again"},
+        {error: person.getErrors()}
+    ));
 });
 
 
 app.all('*', function(req, res) {
     res.statusCode = 404;
-    res.send("Incorrect request");
+    res.send("Incorrect request. Page not found");
 });
 
 app.listen("4242");
