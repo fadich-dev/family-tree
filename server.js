@@ -8,10 +8,10 @@ var app = express();
 
 var person = require('./models/person');
 
-var send      = function (message, data) {
+var send = function (message, data) {
     return {
-        message: message,
-        data:    data
+        message: message || null,
+        data:    data    || {}
     }
 };
 
@@ -30,8 +30,10 @@ app.post('/person/:id', function(req, res) {
 
 app.post('/person/create', function(req, res) {
     var person = person.get().setAttributes(req);
+    res.type = "application/json";
     if (person.save()) {
-
+        res.send(send("Node successfully saved"));
+        res.end();
     }
     var send = JSON.stringify();
     res.send(send);
@@ -54,4 +56,3 @@ app.all('*', function(req, res) {
 });
 
 app.listen("4242");
-
