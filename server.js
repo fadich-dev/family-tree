@@ -16,17 +16,32 @@ var tree   = require('./models/tree');
  * @returns {{message: ({}), data: ({})}}
  */
 var send = function (message, data) {
+    console.log(arguments);
     return {
         message: message || {},
         data:    data    || {}
     }
 };
 
-app.get('/', function(req, res) {
+
+app.use(express.static(__dirname + '/'));
+
+app.get('/', function (req, res) {
+    res.render('index');
+    res.send();
+});
+
+app.post('/get-tree', function(req, res) {
 
     res.type = "application/json";
 
-    res.send(send(null, {tree: tree.getTree()}));
+    var dataTree = tree.getTree();
+    // processing the received data
+    res.send(send(
+        dataTree === false ? {error: "Failed getting tree"} : null,
+        {tree: dataTree}
+        )
+    );
 });
 
 app.post('/person/:id', function(req, res) {

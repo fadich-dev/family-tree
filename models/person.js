@@ -1,3 +1,6 @@
+var db       = require('../db');
+var ObjectID = require('mongodb').ObjectID;
+
 function Person() {
 
     this._id    = null;
@@ -96,9 +99,24 @@ exports.get = function (id) {
 
     var person = new Person();
 
-    // TODO: findById()
-    var data = {_id: id}; // getting data
+    db.get().collection('family_tree').findOne({_id: ObjectID(id)}, function(err, person) {
+        if (err){
+            console.error(err);
+            return false;
+        }
+        if (!person) {
+            return false;
+        }
+        // getting data
+        var data = {
+            name:   person.name,
+            photo:  person.photo,
+            parent: person.parent
+        };
 
-    person.setAttributes(data)._id = data._id;
+        person.setAttributes(data)._id = data.id;
+        return person;
+
+    });
     return person;
 };
