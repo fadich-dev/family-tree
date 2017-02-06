@@ -26,7 +26,12 @@ app.get('/', function(req, res) {
 
     res.type = "application/json";
 
-    res.send(send(null, {tree: tree.getTree()}));
+    var dTree = tree.getTree();
+    // processing the received data
+    var data = dTree === false ? {} : {tree: dTree};
+    var msg  = dTree === false ? {error: "Failed getting tree"} : null;
+
+    res.send(send(msg, data));
 });
 
 app.post('/person/:id', function(req, res) {
