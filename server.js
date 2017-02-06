@@ -16,6 +16,7 @@ var tree   = require('./models/tree');
  * @returns {{message: ({}), data: ({})}}
  */
 var send = function (message, data) {
+    console.log(arguments);
     return {
         message: message || {},
         data:    data    || {}
@@ -23,27 +24,24 @@ var send = function (message, data) {
 };
 
 
-app.use(express.static(__dirname + '/www'));
+app.use(express.static(__dirname + '/'));
 
 app.get('/', function (req, res) {
-    res.render('www/index');
+    res.render('index');
     res.send();
-})
+});
 
 app.post('/get-tree', function(req, res) {
 
     res.type = "application/json";
 
-    tree.getTree();
-
-    res.send(send(null, {tree: tree.getTree()}));
-
-    var dTree = tree.getTree();
+    var dataTree = tree.getTree();
     // processing the received data
-    var data = dTree === false ? {} : {tree: dTree};
-    var msg  = dTree === false ? {error: "Failed getting tree"} : null;
-
-    res.send(send(msg, data));
+    res.send(send(
+        dataTree === false ? {error: "Failed getting tree"} : null,
+        {tree: dataTree}
+        )
+    );
 });
 
 app.post('/person/:id', function(req, res) {

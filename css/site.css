@@ -19,3 +19,8 @@ footer {
 .title {
     text-align: center;
 }
+
+.footnote {
+    font-size: 14px;
+    font-style: italic;
+}
