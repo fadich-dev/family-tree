@@ -22,13 +22,28 @@ var send = function (message, data) {
     }
 };
 
-app.get('/', function(req, res) {
+
+app.use(express.static(__dirname + '/www'));
+
+app.get('/', function (req, res) {
+    res.render('www/index');
+    res.send();
+})
+
+app.post('/get-tree', function(req, res) {
 
     res.type = "application/json";
 
     tree.getTree();
 
     res.send(send(null, {tree: tree.getTree()}));
+
+    var dTree = tree.getTree();
+    // processing the received data
+    var data = dTree === false ? {} : {tree: dTree};
+    var msg  = dTree === false ? {error: "Failed getting tree"} : null;
+
+    res.send(send(msg, data));
 });
 
 app.post('/person/:id', function(req, res) {

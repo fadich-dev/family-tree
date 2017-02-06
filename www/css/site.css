@@ -1,0 +1,21 @@
+header {
+    height: 15%;
+    width:  100%;
+    border-radius: 5px;
+    background-color: rgba(155, 155, 155, 0.5);
+}
+
+footer {
+    height: 15%;
+    width:  100%;
+    border-radius: 5px;
+    background-color: rgba(155, 155, 155, 0.5);
+}
+
+.head {
+    text-transform: uppercase;
+}
+
+.title {
+    text-align: center;
+}

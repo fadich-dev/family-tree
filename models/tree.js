@@ -2,26 +2,20 @@ var mongo = require('mongodb').MongoClient;
 
 var url = 'mongodb://localhost:27017/family_tree';
 
+var db       = require('../db');
+var ObjectID = require('mongodb').ObjectID;
+
 exports.getTree = function () {
-
-    // TODO: get tree
-
-    mongo.connect(url, function(err, db) {
-        if (err) {
-            return false;
-        }
-        var familyTree = db.collection('family_tree');
-
-        // familyTree.listDatabases(function(err, dbs) {
-        //     if (err) {
-        //         return [];
-        //     }
-            // test.equal(null, err);
-            // test.ok(dbs.databases.length > 0);
-            db.close();
-        // });
-        console.log(familyTree);
-    });
-
-    return [];
+    try {
+        db.get().collection('family_tree').find({}).toArray(function (err, doc) {
+            if (err) {
+                console.error(err);
+                return false;
+            }
+            return doc;
+        });
+    } catch (e) {
+        console.log(e.message);
+        return false;
+    }
 };
