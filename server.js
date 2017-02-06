@@ -26,6 +26,8 @@ app.get('/', function(req, res) {
 
     res.type = "application/json";
 
+    tree.getTree();
+
     res.send(send(null, {tree: tree.getTree()}));
 });
 
