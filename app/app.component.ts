@@ -1,4 +1,5 @@
-import { Component } from "angular2/core";
+import { Component }     from "angular2/core";
+import { TreeComponent } from "./tree.component";
 
 @Component({
     selector: 'my-app',
@@ -9,7 +10,8 @@ import { Component } from "angular2/core";
                 <p class="footnote">Though it is more like a scheme of the network marketing</p>
             </div>
         </header>
-        <tree></tree>`
+        <tree></tree>`,
+    directives: [TreeComponent]
 })
 
 export class AppComponent { }

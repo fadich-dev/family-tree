@@ -34,3 +34,26 @@ footer {
     font-size:          14px;
     font-style:         italic;
 }
+
+.node {
+}
+
+.circle{
+    height:             10vw;
+    width:              10vw;
+    border:             1px solid;
+    border-radius:      50%;
+    display:            inline-block;
+}
+
+.tree {
+    align-content:     center;
+}
+
+.children {
+    margin-top:        10px;
+}
+.children div{
+    display:           inline-block;
+    margin:            0 5vw;
+}
