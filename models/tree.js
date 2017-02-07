@@ -1,21 +1,16 @@
-var mongo = require('mongodb').MongoClient;
+var db = require('../db');
 
-var url = 'mongodb://localhost:27017/family_tree';
-
-var db       = require('../db');
-var ObjectID = require('mongodb').ObjectID;
-
-exports.getTree = function () {
+exports.getTree = function (callback) {
     try {
-        db.get().collection('family_tree').find({}).toArray(function (err, doc) {
+        db.get().collection('person').find().toArray(function (err, doc) {
             if (err) {
                 console.error(err);
-                return false;
+                return callback(false);
             }
-            return doc;
+            return callback(doc);
         });
     } catch (e) {
-        console.log(e.message);
-        return false;
+        console.error(e.message);
+        return callback(false);
     }
 };
