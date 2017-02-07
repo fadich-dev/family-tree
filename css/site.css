@@ -1,26 +1,35 @@
+body {
+    background-color:   rgba(25, 25, 25, 0.05);
+}
+
 header {
-    height: 15%;
-    width:  100%;
-    border-radius: 5px;
-    background-color: rgba(155, 155, 155, 0.5);
+    height:             15%;
+    width:              100%;
+    border-radius:      5px;
+    background-color:   rgba(155, 155, 155, 0.5);
+}
+
+main {
+    align-content:      center;
+    text-align:         center;
 }
 
 footer {
-    height: 15%;
-    width:  100%;
-    border-radius: 5px;
-    background-color: rgba(155, 155, 155, 0.5);
+    height:             15%;
+    width:              100%;
+    border-radius:      5px;
+    background-color:   rgba(155, 155, 155, 0.5);
 }
 
 .head {
-    text-transform: uppercase;
+    text-transform:     uppercase;
 }
 
 .title {
-    text-align: center;
+    text-align:         center;
 }
 
 .footnote {
-    font-size: 14px;
-    font-style: italic;
+    font-size:          14px;
+    font-style:         italic;
 }
