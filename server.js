@@ -6,10 +6,11 @@ console.info('Running server. . .');
 var express = require('express');
 var app = express();
 
-var person = require('./models/person');
-var tree   = require('./models/tree');
-var db     = require('./db');
-var url    = require('url');
+var person     = require('./models/person');
+var tree       = require('./models/tree');
+var db         = require('./db');
+var bodyParser = require('body-parser');
+// var url    = require('url');
 
 db.connect('mongodb://localhost:27017/family_tree', function (err) {
     if (err) {
@@ -28,13 +29,14 @@ db.connect('mongodb://localhost:27017/family_tree', function (err) {
  * @returns {{message: ({}), data: ({})}}
  */
 var send = function (message, data) {
-    console.log(arguments);
     return {
         message: message || {},
         data:    data    || {}
     }
 };
 
+app.use(bodyParser.urlencoded());
+app.use( bodyParser.json() );       // to support JSON-encoded bodies
 
 // app.use(express.static(__dirname + '/'));
 
@@ -61,7 +63,9 @@ app.post('/person/create', function(req, res) {
 
     res.type = "application/json";
 
-    console.log(req.query);
+    // console.log(req.body);
+    // res.send(send(null, {data: req.body}));
+    // return ;
 
     person.get(false, function (person) {
         if (person) {
