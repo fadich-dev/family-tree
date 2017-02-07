@@ -6,30 +6,34 @@ import { TreeService }   from "./tree.service";
     template:
         `<main>
             <div class="head">{{ title }}</div>
-            <div>{{ buildTree() }}</div>
-            <div class="tree">
-                <div *ngFor="#node of tree">
-                     <div class="node circle" title="{{ node.name }}">
-                         <img src="{{ node.photo }}">
-                    </div>
-                    <div class="children">
-                        <div *ngFor="#child of node.children">
-                            <div class="node circle" title="{{ child.name }}">
-                                <img src="{{ child.photo }}" alt="">
-                            </div>
-                            <div class="children">
-                                <div *ngFor="#ch of child.children">
-                                    <div class="node circle" title="{{ ch.name }}">
-                                        <img src="{{ ch.photo }}" alt="">
-                                        <div class="children">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <table class="tree">
+                <tr>
+                    <td *ngFor="#node of tree" width="10">
+                        <div class="circle" id="{{ node._id }}" data-id="{{ node.parent }}">
+                            <div class="name">{{ node.name }}</div>
+                            <img src="{{ node.photo }}">
                         </div>
-                     </div>
-                </div>
-            </div>
+                        <table class="tree">
+                            <tr>
+                                <td *ngFor="#child of node.children">
+                                <div class="circle" id="{{ child._id }}" data-id="{{ child.parent }}">
+                                    <div class="name">{{ child.name }}</div>
+                                    <img src="{{ child.photo }}">
+                                </div>
+                                <table class="tree">
+                                    <tr>
+                                        <td *ngFor="#ch of child.children">
+                                        <div class="circle" id="{{ ch._id }}" data-id="{{ ch.parent }}">
+                                            <div class="name">{{ ch.name }}</div>
+                                            <img src="{{ ch.photo }}">
+                                        </div>
+                                    </tr>
+                                </table>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
         </main>`,
     providers: [TreeService]
 })

@@ -63,7 +63,7 @@ app.post('/person/create', function(req, res) {
 
     res.type = "application/json";
 
-    // console.log(req.body);
+    // console.log(req.params);
     // res.send(send(null, {data: req.body}));
     // return ;
 
