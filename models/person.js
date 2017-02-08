@@ -18,13 +18,23 @@ function Person() {
     };
 
     this.validate = function () {
-        if (this.hasErrors()) {
-            return false;
+        if (!this.name) {
+            errors.name = "Attribute is required";
+        } else if (typeof this.name != "string") {
+            errors.name = "Attribute should be a string";
+        } else if (this.name.length < 3) {
+            errors.name = "Too short name (should be 3 or more symbols)";
         }
 
-        // TODO: check data for correctness
+        if (this.photo && typeof this.photo != "string") {
+            errors.photo = "Attribute should be a string";
+        }
 
-        return true;
+        if (this.parent && typeof this.parent != "string") {
+            errors.parent = "Attribute should be a string";
+        }
+
+        return !this.hasErrors();
     };
 
     /**
@@ -39,14 +49,18 @@ function Person() {
     };
 
     this.hasErrors = function () {
-        return isEmpty(this.getErrors());
+        return !isEmpty(this.getErrors());
     };
 
     this.save = function (skipValidation) {
         if (!skipValidation && !this.validate()) {
             return false;
         }
-        return !this._id ? create(this) : update(this);
+        try {
+            return !this._id ? create(this) : update(this);
+        } catch (e) {
+            return false;
+        }
 
     };
 
@@ -74,15 +88,23 @@ function Person() {
     var errors = {};
 
     var create = function (person) {
-
-        // TODO: create new record
-
+        person._id = ObjectID();
+        db.get().collection('person').insert(person, function(err) {
+            if (err){
+                console.error(err);
+                throw new Error(err);
+            }
+        });
         return true;
     };
 
     var update = function (person) {
-
-        // TODO: update the record (by id)
+        db.get().collection('person').update({_id: ObjectID(person._id)}, person, function(err) {
+            if (err){
+                console.error(err);
+                throw new Error(err);
+            }
+        });
 
         return true;
     };
@@ -92,31 +114,39 @@ function Person() {
     }
 }
 
-exports.get = function (id) {
-    if (!id) {
-        return new Person();
-    }
+exports.get = function (id, callback) {
 
     var person = new Person();
 
-    db.get().collection('family_tree').findOne({_id: ObjectID(id)}, function(err, person) {
+    if (!id) {
+        return callback(person);
+    }
+
+    var objId = null;
+    try {
+        objId = ObjectID(id);
+    } catch (e) {
+        console.warn(e.message);
+        return callback(false);
+    }
+
+    db.get().collection('person').findOne({_id: objId}, function(err, doc) {
         if (err){
             console.error(err);
-            return false;
+            return callback(false);
         }
-        if (!person) {
-            return false;
+
+        if (!doc) {
+            return callback(false);
         }
-        // getting data
-        var data = {
-            name:   person.name,
-            photo:  person.photo,
-            parent: person.parent
-        };
 
-        person.setAttributes(data)._id = data.id;
-        return person;
+        // setting properties
+        person.setAttributes({
+            name:   doc.name,
+            photo:  doc.photo,
+            parent: doc.parent
+        })._id = doc._id;
 
+        return callback(person);
     });
-    return person;
 };
