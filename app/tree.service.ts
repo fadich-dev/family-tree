@@ -1,5 +1,22 @@
+import {Http}       from 'angular2/http';
+import {Observable} from "rxjs";
+import {Headers}    from "angular2/src/http/headers";
+
 export class TreeService {
-    getTree(): Array<any> {
+
+    public getTreeUrl: string = "http://localhost:4242/get-tree";
+
+    constructor (protected http: Http) {
+
+    }
+
+    public getTree(): Array<any> {
+
+        // let headers = new Headers({ 'Content-Type': 'application/json', url: "/get-tree" });
+
+        // return this.http
+        //     .post(this.getTreeUrl, '', {headers : headers})
+        //     .map(res => res.json());
         return [
             {
                 _id: "132gy231y23y23j",

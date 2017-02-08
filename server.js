@@ -131,19 +131,14 @@ app.post('/person/:id/delete', function(req, res) {
 });
 
 app.all('/test', function (req, res) {
-    // if (req.method == "GET") {
-    //     res.send("Method: GET; params: " + JSON.stringify(req.query));
-    // }
-    // if (req.method == "POST") {
-    //     res.send("Method: POST; params: " + JSON.stringify(req.body));
-    // }
     res.send("Method: " + req.method + " query: " + JSON.stringify(req.query) + "; body: " + JSON.stringify(req.body));
 });
 
 
 app.all('*', function(req, res) {
+    console.warn("Incorrect request \"" + req.url + "\": page not found");
     res.statusCode = 404;
-    res.send("Incorrect request. Page not found");
+    res.send("Incorrect request \"" + req.url + "\": page not found");
 });
 
 app.listen("4242");

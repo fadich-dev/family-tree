@@ -1,5 +1,6 @@
 import { Component }     from "angular2/core";
 import { TreeService }   from "./tree.service";
+import {Observable}      from "rxjs";
 
 @Component({
     selector: 'tree',
