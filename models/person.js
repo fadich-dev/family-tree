@@ -113,7 +113,7 @@ function Person() {
 exports.get = function (id, callback) {
 
     var person = new Person();
-    console.log(id);
+
     if (!id) {
         return callback(person);
     }

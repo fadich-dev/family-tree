@@ -3,14 +3,15 @@ console.info('Running server. . .');
 
 /**********************************************************************************************************************/
 
-var express = require('express');
-var app = express();
-
+var express    = require('express');
+var bodyParser = require('body-parser');
 var person     = require('./models/person');
 var tree       = require('./models/tree');
 var db         = require('./db');
-var bodyParser = require('body-parser');
 // var url    = require('url');
+
+
+var app = express();
 
 db.connect('mongodb://localhost:27017/family_tree', function (err) {
     if (err) {
@@ -63,14 +64,10 @@ app.post('/person/create', function(req, res) {
 
     res.type = "application/json";
 
-    // console.log(req.params);
-    // res.send(send(null, {data: req.body}));
-    // return ;
-
     person.get(false, function (person) {
         if (person) {
             // TODO: do not forget about photo!
-            if (person.setAttributes(req.params).save()) {
+            if (person.setAttributes(req.body).save()) {
                 return res.send(send({success: "Node successfully created"}));
             }
             res.statusCode = 400;
@@ -100,7 +97,7 @@ app.post('/person/:id/update', function(req, res) {
 
     res.type = "application/json";
 
-    var person = person.get(req.id).setAttributes(req);
+    var person = person.get(req.body.id).setAttributes(req.body);
     if (person.save()) {
         res.send(send({success: "Node successfully updated"}));
         res.end();
@@ -113,11 +110,11 @@ app.post('/person/:id/update', function(req, res) {
     ));
 });
 
-app.delete('/person/:id/delete', function(req, res) {
+app.post('/person/:id/delete', function(req, res) {
 
     res.type = "application/json";
 
-    var person = person.get(req.id);
+    var person = person.get(req.params.id);
     if (person.delete()) {
         res.send(send({success: "Node (branch) successfully deleted"}));
         res.end();
@@ -128,6 +125,16 @@ app.delete('/person/:id/delete', function(req, res) {
         {warning: "Node cannot be updated. Maybe, data is invalid. Check it for the correctness and try again"},
         {error: person.getErrors()}
     ));
+});
+
+app.all('/test', function (req, res) {
+    // if (req.method == "GET") {
+    //     res.send("Method: GET; params: " + JSON.stringify(req.query));
+    // }
+    // if (req.method == "POST") {
+    //     res.send("Method: POST; params: " + JSON.stringify(req.body));
+    // }
+    res.send("Method: " + req.method + " query: " + JSON.stringify(req.query) + "; body: " + JSON.stringify(req.body));
 });
 
 
