@@ -99,8 +99,12 @@ function Person() {
     };
 
     var update = function (person) {
-
-        // TODO: update the record (by id)
+        db.get().collection('person').update({_id: ObjectID(person._id)}, person, function(err) {
+            if (err){
+                console.error(err);
+                throw new Error(err);
+            }
+        });
 
         return true;
     };

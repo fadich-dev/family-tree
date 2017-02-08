@@ -8,11 +8,10 @@ import { TreeService }   from "./tree.service";
 })
 
 export class TreeComponent {
-    title: string = "*** *** ***";
-    tree: any[];
+    nodes: Array<any>;
+    view = "/app/views/tree.html";
 
     constructor (treeService: TreeService) {
-        this.tree = treeService.getTree();
+        this.nodes = treeService.getTree();
     }
-
 }

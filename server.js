@@ -97,17 +97,20 @@ app.post('/person/:id/update', function(req, res) {
 
     res.type = "application/json";
 
-    var person = person.get(req.body.id).setAttributes(req.body);
-    if (person.save()) {
-        res.send(send({success: "Node successfully updated"}));
-        res.end();
-    }
-
-    res.statusCode = 400;
-    res.send(send(
-        {warning: "Node cannot be updated. Maybe, data is invalid. Check it for the correctness and try again"},
-        {error: person.getErrors()}
-    ));
+    person.get(req.params.id, function (person) {
+        if (person) {
+            // TODO: do not forget about photo!
+            if (person.setAttributes(req.body).save()) {
+                return res.send(send({success: "Node successfully updates"}));
+            }
+            res.statusCode = 400;
+            res.send(send(
+                {warning: "Node cannot be updated. Maybe, data is invalid. Check it for the correctness and try again"},
+                {error: person.getErrors()}
+            ));
+        }
+        return res.send(send({error: "Person was not found"}));
+    });
 });
 
 app.post('/person/:id/delete', function(req, res) {

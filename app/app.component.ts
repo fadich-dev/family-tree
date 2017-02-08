@@ -10,7 +10,10 @@ import { TreeComponent } from "./tree.component";
                 <p class="footnote">Though it is more like a scheme of the network marketing</p>
             </div>
         </header>
-        <tree></tree>`,
+        <main>
+            <div class="head">*** *** ***</div>
+            <tree></tree>
+        </main>`,
     directives: [TreeComponent]
 })
 

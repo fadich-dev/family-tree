@@ -1,5 +1,5 @@
 export class TreeService {
-    getTree(): any[] {
+    getTree(): Array<any> {
         return [
             {
                 _id: "132gy231y23y23j",
