@@ -9,10 +9,14 @@ import {Observable}      from "rxjs";
 })
 
 export class TreeComponent {
-    nodes: Array<any>;
+    nodes: Observable<any[]>;
     view = "/app/views/tree.html";
 
     constructor (treeService: TreeService) {
-        this.nodes = treeService.getTree();
+        try {
+            this.nodes = treeService.getTree();
+        } catch (e) {
+            this.nodes = new Observable();
+        }
     }
 }
