@@ -1,6 +1,5 @@
 import { Component }     from "angular2/core";
 import { TreeService }   from "./tree.service";
-import {Observable}      from "rxjs";
 
 @Component({
     selector: 'tree',
@@ -9,14 +8,32 @@ import {Observable}      from "rxjs";
 })
 
 export class TreeComponent {
-    nodes: Observable<any[]>;
-    view = "/app/views/tree.html";
+    tree: Object[];
+    message: {type: "", text: ""};
+    // view = "/app/views/tree.html";
 
-    constructor (treeService: TreeService) {
+    constructor (private _treeService: TreeService) {
         try {
-            this.nodes = treeService.getTree();
+            this.buildTree();
         } catch (e) {
-            this.nodes = new Observable();
+            alert("Error: \"" + e.message + "\"");
+        }
+    }
+
+    protected buildTree() {
+        this._treeService.getTree().subscribe(
+            success => this.handleData(success),
+            error   => alert("Error: \"" + (error.message || "unknown error") + "\""),
+               ()   => console.log('finished')
+        );
+    }
+
+    protected handleData(data) {
+        this.message = data.message;
+        if (data.data.tree === false) {
+            alert(this.message.type + ": \"" + this.message.text  + "\"");
+        } else {
+            this.tree = data.data.tree;
         }
     }
 }

@@ -53,7 +53,7 @@ app.post('/get-tree', function(req, res) {
     tree.getTree(function (data) {
         // processing the received data
         res.send(send(
-            data === false ? {error: "Failed getting tree"} : null,
+            data === false ? {type: "error", text: "Failed getting tree"} : null,
             {tree: data}
             )
         );
@@ -68,15 +68,18 @@ app.post('/person/create', function(req, res) {
         if (person) {
             // TODO: do not forget about photo!
             if (person.setAttributes(req.body).save()) {
-                return res.send(send({success: "Node successfully created"}));
+                return res.send(send({type: "success", text: "Node successfully created"}));
             }
             res.statusCode = 400;
             return res.send(send(
-                {warning: "Node cannot be created. Maybe, data is invalid. Check it for the correctness and try again"},
+                {
+                    type: "warning",
+                    text: "Node cannot be created. Maybe, data is invalid. Check it for the correctness and try again"
+                },
                 {errors: person.getErrors()}
             ));
         }
-        return res.send(send({error: "Person was not found"}));
+        return res.send(send({type: "error", text: "Person was not found"}));
     });
 });
 
@@ -86,7 +89,7 @@ app.post('/person/:id', function(req, res) {
 
     person.get(req.params.id, function (person) {
         res.send(send(
-            person === false ? {error: "Person was not found"} : null,
+            person === false ? {type: "error", text: "Person was not found"} : null,
             {person: person}
             )
         );
@@ -101,11 +104,14 @@ app.post('/person/:id/update', function(req, res) {
         if (person) {
             // TODO: do not forget about photo!
             if (person.setAttributes(req.body).save()) {
-                return res.send(send({success: "Node successfully updates"}));
+                return res.send(send({type: "success", text: "Node successfully updates"}));
             }
             res.statusCode = 400;
             res.send(send(
-                {warning: "Node cannot be updated. Maybe, data is invalid. Check it for the correctness and try again"},
+                {
+                    type: "warning",
+                    text: "Node cannot be updated. Maybe, data is invalid. Check it for the correctness and try again"
+                },
                 {error: person.getErrors()}
             ));
         }
@@ -119,13 +125,16 @@ app.post('/person/:id/delete', function(req, res) {
 
     var person = person.get(req.params.id);
     if (person.delete()) {
-        res.send(send({success: "Node (branch) successfully deleted"}));
+        res.send(send({type: "success", text: "Node (branch) successfully deleted"}));
         res.end();
     }
 
     res.statusCode = 400;
     res.send(send(
-        {warning: "Node cannot be updated. Maybe, data is invalid. Check it for the correctness and try again"},
+        {
+            type: "warning",
+            text: "Node cannot be updated. Maybe, data is invalid. Check it for the correctness and try again"
+        },
         {error: person.getErrors()}
     ));
 });
