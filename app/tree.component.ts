@@ -1,5 +1,5 @@
-import { Component }     from "angular2/core";
-import { TreeService }   from "./tree.service";
+import { Component, Input } from "angular2/core";
+import { TreeService } from "./tree.service";
 
 @Component({
     selector: 'tree',
@@ -11,7 +11,7 @@ export class TreeComponent {
 
     message: {type: "", text: ""};
 
-    tree: Object[];
+    @Input() tree: Array<any>;
 
     constructor (private _treeService: TreeService) {
         try {
@@ -19,10 +19,6 @@ export class TreeComponent {
         } catch (e) {
             alert("Error: \"" + e.message + "\"");
         }
-    }
-
-    public buildTree(some) {
-        return some;
     }
 
     protected initTree() {

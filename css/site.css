@@ -63,11 +63,13 @@ table {
 }
 
 .circle .name {
+    align-content:      center;
     display:            block;
     height:             16px;
     border-radius:      10px;
-    background-color:   rgba(155, 155, 155, 0.5);
+    background-color:   rgba(128, 128, 128, 0.35);
     overflow:           hidden;
+    z-index:            2;
 }
 
 .circle .name:hover {
@@ -75,4 +77,8 @@ table {
     overflow:           visible;
     height:             auto;
     min-width:          10vw;
+}
+
+.photo {
+    display:            block;
 }
