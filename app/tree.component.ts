@@ -9,9 +9,9 @@ import { TreeService } from "./tree.service";
 
 export class TreeComponent {
 
-    message: {type: "", text: ""};
+    public message: {type: "", text: ""};
 
-    @Input() tree: Array<any>;
+    @Input() tree;
 
     constructor (private _treeService: TreeService) {
         try {
@@ -20,6 +20,8 @@ export class TreeComponent {
             alert("Error: \"" + e.message + "\"");
         }
     }
+
+    alr(msg) { alert(msg); }
 
     protected initTree() {
         this._treeService.getTree().subscribe(
