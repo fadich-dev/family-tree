@@ -7,25 +7,24 @@
                 <img src="{{ node.photo }}">
             </div>
             <table *ngIf="node.children" class="tree">
-                <!--{{ getTree() }}-->
-                <!--<tr>-->
-                    <!--<td *ngFor="#child of node.children">-->
-                        <!--<div class="circle" id="{{ child._id }}" data-id="{{ child.parent }}">-->
-                            <!--<div class="name">{{ child.name }}</div>-->
-                            <!--<img src="{{ child.photo }}">-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash;{{ view }}&ndash;&gt;-->
-                        <!--<table class="tree">-->
-                            <!--<tr>-->
-                                <!--<td *ngFor="#ch of child.children">-->
-                                    <!--<div class="circle" id="{{ ch._id }}" data-id="{{ ch.parent }}">-->
-                                        <!--<div class="name">{{ ch.name }}</div>-->
-                                        <!--<img src="{{ ch.photo }}">-->
-                                    <!--</div>-->
-                            <!--</tr>-->
-                        <!--</table>-->
-                    <!--</td>-->
-                <!--</tr>-->
+                <tr>
+                    <td *ngFor="#child of node.children">
+                        <div class="circle" id="{{ child._id }}" data-id="{{ child.parent }}">
+                            <div class="name">{{ child.name }}</div>
+                            <img src="{{ child.photo }}">
+                        </div>
+                        <!--{{ view }}-->
+                        <table class="tree">
+                            <tr>
+                                <td *ngFor="#ch of child.children">
+                                    <div class="circle" id="{{ ch._id }}" data-id="{{ ch.parent }}">
+                                        <div class="name">{{ ch.name }}</div>
+                                        <img src="{{ ch.photo }}">
+                                    </div>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
             </table>
         </td>
     </tr>

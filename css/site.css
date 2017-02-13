@@ -71,6 +71,8 @@ table {
 }
 
 .circle .name:hover {
+    display:            inherit;
     overflow:           visible;
     height:             auto;
+    min-width:          10vw;
 }

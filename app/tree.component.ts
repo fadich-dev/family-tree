@@ -8,18 +8,24 @@ import { TreeService }   from "./tree.service";
 })
 
 export class TreeComponent {
-    tree: Object[];
+
     message: {type: "", text: ""};
+
+    tree: Object[];
 
     constructor (private _treeService: TreeService) {
         try {
-            this.buildTree();
+            this.initTree();
         } catch (e) {
             alert("Error: \"" + e.message + "\"");
         }
     }
 
-    protected buildTree() {
+    public buildTree(some) {
+        return some;
+    }
+
+    protected initTree() {
         this._treeService.getTree().subscribe(
             success => this.handleData(success),
             error   => alert("Error: \"" + (error.message || "unknown error") + "\""),
