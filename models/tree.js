@@ -21,10 +21,12 @@ exports.getTree = function (callback) {
 
 function buildTree(parent) {
     var tree = [];
-    nodes.forEach(function (element, index) {
+    var i = 0;
+    nodes.forEach(function (element) {
         if (element.parent == parent) {
-            tree[index] = element;
-            tree[index].children = buildTree(tree[index]._id);
+            tree[i] = element;
+            tree[i].children = buildTree(tree[i]._id);
+            i++;
         }
     });
     return tree;

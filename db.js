@@ -13,6 +13,7 @@ exports.connect = function(url, done) {
         done();
     });
 };
+
 exports.get = function() {
     return stateDb;
 };

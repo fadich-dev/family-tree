@@ -1,31 +1,39 @@
 <table class="tree">
     <tr>
-        <td *ngFor="#node of nodes" width="10">
+        <td *ngFor="let person of tree" width="10">
 
-            <div class="circle" id="{{ node._id }}" data-id="{{ node.parent }}">
-                <div class="name">{{ node.name }}</div>
-                <img src="{{ node.photo }}">
+            <div class="circle" id="{{ person._id }}" data-id="{{ person.parent }}">
+                <div class="name">{{ person.name }}</div>
+                <img class="photo" src="{{ person.photo }}">
             </div>
-            <table class="tree">
-                <tr>
-                    <td *ngFor="#child of node.children">
-                        <!--{{ view }}-->
-                        <div class="circle" id="{{ child._id }}" data-id="{{ child.parent }}">
-                            <div class="name">{{ child.name }}</div>
-                            <img src="{{ child.photo }}">
-                        </div>
-                        <table class="tree">
-                            <tr>
-                                <td *ngFor="#ch of child.children">
-                                    <div class="circle" id="{{ ch._id }}" data-id="{{ ch.parent }}">
-                                        <div class="name">{{ ch.name }}</div>
-                                        <img src="{{ ch.photo }}">
-                                    </div>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
+            <div class="edit" [hidden]="true">
+                <label>
+                    <input name="name" type="text" value="{{ person.name }}">
+                </label>
+            </div>
+            <!--{{ person.children }}-->
+            <!--<tree *ngIf="person.children != 0" [tree]="person.children"></tree>-->
+            <!--<table *ngIf="person.children" class="tree">-->
+                <!--<tr>-->
+                    <!--{{ person.children == 0 }}-->
+                    <!--<td *ngFor="#child of person.children">-->
+                        <!--<div class="circle" id="{{ child._id }}" data-id="{{ child.parent }}">-->
+                            <!--<div class="name">{{ child.name }}</div>-->
+                            <!--<img src="{{ child.photo }}">-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;{{ view }}&ndash;&gt;-->
+                        <!--<table  *ngIf="child.children != 0" class="tree">-->
+                            <!--<tr>-->
+                                <!--<td *ngFor="#ch of child.children">-->
+                                    <!--<div class="circle" id="{{ ch._id }}" data-id="{{ ch.parent }}">-->
+                                        <!--<div class="name">{{ ch.name }}</div>-->
+                                        <!--<img src="{{ ch.photo }}">-->
+                                    <!--</div>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                    <!--</td>-->
+                <!--</tr>-->
+            <!--</table>-->
         </td>
     </tr>
 </table>
