@@ -10,7 +10,6 @@ import { TreeService }   from "./tree.service";
 export class TreeComponent {
     tree: Object[];
     message: {type: "", text: ""};
-    // view = "/app/views/tree.html";
 
     constructor (private _treeService: TreeService) {
         try {
@@ -24,7 +23,7 @@ export class TreeComponent {
         this._treeService.getTree().subscribe(
             success => this.handleData(success),
             error   => alert("Error: \"" + (error.message || "unknown error") + "\""),
-               ()   => console.log('finished')
+            ()      => console.log('finished')
         );
     }
 
