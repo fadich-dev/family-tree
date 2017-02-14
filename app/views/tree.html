@@ -26,13 +26,14 @@
                     </div>
                 </div>
                 <br>
-                <div class="form-body">
+                <form class="form-body" method="post" action="/person/{{ person._id }}/update">
                     <label>
                         <input name="name" type="text" value="{{ person.name }}">
                     </label>
                     <br>
                     <input type="file">
-                </div>
+                    <button type="submit">Update</button>
+                </form>
             </div>
 
             <!--{{ person.children }}-->
