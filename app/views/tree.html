@@ -27,12 +27,12 @@
                 </div>
                 <br>
                 <form class="form-body" method="post" action="/person/{{ person._id }}/update">
-                    <label>
-                        <input name="name" type="text" value="{{ person.name }}">
-                    </label>
+                    <label for="name_{{ person._id }}">Name</label>
+                        <input class="form-control" name="name" id="name_{{ person._id }}"
+                               type="text" value="{{ person.name }}">
                     <br>
-                    <input type="file">
-                    <button type="submit">Update</button>
+                    <input class="form-control" type="file">
+                    <button class="btn btn-primary btn-sm" style="float: right" type="submit">Update</button>
                 </form>
             </div>
 

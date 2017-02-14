@@ -54,7 +54,7 @@ table {
 
 .tree td {
     vertical-align:     top;
-    font-size:          3.75vw;
+    font-size:          14px;
     margin-bottom:      2vw;
     /*border:             1px solid black;*/
     /*border-radius:      50%;*/
@@ -63,7 +63,7 @@ table {
 .circle .name {
     align-content:      center;
     display:            block;
-    height:             4vw;
+    height:             18px;
     border-radius:      10px;
     background-color:   rgba(128, 128, 128, 0.35);
     overflow:           hidden;
@@ -108,7 +108,9 @@ table {
     width:              50%;
     height:             30vh;
     border:             outset 1px;
-    padding:            5%;
+    padding-bottom:     5%;
+    padding-left:       5%;
+    padding-right:      5%;
     position:           fixed;
     z-index:            5;
     overflow:           auto;
@@ -116,14 +118,15 @@ table {
 }
 
 .node-form .head {
-    height:             4vw;
+    height:             32px;
     width:              100%;
     border-bottom:      solid 1px;
-    margin-bottom:      3%;
+    margin-bottom:      0;
 }
 
 .node-form .head .close {
-    margin:             -5%;
+    margin-top:         1%;
+    margin-right:       -10%;
     float:              right;
     cursor:             pointer;
     color:              silver;
@@ -135,9 +138,13 @@ table {
 }
 
 .node-form .title {
-    margin:             -2.5% 0;
+    margin:             1% -5%;
     float:              left;
     text-transform:     none;
+    height:             26px;
+    width:              70%;
+    overflow:           hidden;
+    text-align:         left;
 }
 
 .node-form .form-body {
