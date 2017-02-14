@@ -1,10 +1,11 @@
 import { Component, Input } from "angular2/core";
 import { TreeService } from "./tree.service";
+import {BehaviouralService} from "./behavioural.service";
 
 @Component({
     selector: 'tree',
-    templateUrl: "/app/views/tree.html",
-    providers: [TreeService]
+    templateUrl: '/app/views/tree.html',
+    providers: [TreeService, BehaviouralService]
 })
 
 export class TreeComponent {
@@ -13,7 +14,10 @@ export class TreeComponent {
 
     @Input() tree;
 
-    constructor (private _treeService: TreeService) {
+    constructor (
+        private _treeService: TreeService,
+        public  behaviour: BehaviouralService
+    ) {
         try {
             this.initTree();
         } catch (e) {
@@ -21,13 +25,11 @@ export class TreeComponent {
         }
     }
 
-    alr(msg) { alert(msg); }
-
     protected initTree() {
         this._treeService.getTree().subscribe(
             success => this.handleData(success),
-            error   => alert("Error: \"" + (error.message || "unknown error") + "\""),
-            ()      => console.log('finished')
+            error   => alert("Error: \"" + (error.message || "unknown error") + "\"") || console.log(error),
+                ()  => console.log('finished')
         );
     }
 

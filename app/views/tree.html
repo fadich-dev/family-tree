@@ -1,16 +1,51 @@
 <table class="tree">
     <tr>
-        <td *ngFor="let person of tree" width="10">
+        <td *ngFor="let person of tree" width="10" class="node"
+            (mouseover)="behaviour.showMenuItems(person._id)"
+            (mouseout)="behaviour.hideMenuItems(person._id)">
 
             <div class="circle" id="{{ person._id }}" data-id="{{ person.parent }}">
                 <div class="name">{{ person.name }}</div>
                 <img class="photo" src="{{ person.photo }}">
             </div>
-            <div class="edit" [hidden]="true">
-                <label>
-                    <input name="name" type="text" value="{{ person.name }}">
-                </label>
+
+            <div class="menu-items" [hidden]="behaviour.isHidden(person._id)">
+                <span class="item-3 add">
+                    <i class="material-icons">add</i>
+                </span>
+                <span class="item-3 edit" (click)="behaviour.showMenuItems('form' + person._id)">
+                    <i class="material-icons">edit</i>
+                </span>
             </div>
+
+            <div class="node-form form-group row" [hidden]="behaviour.isHidden('form' + person._id)">
+                <div class="head">
+                    <span class="title">Edit <strong>{{ person.name }}</strong>. . .</span>
+                    <div class="close" (click)="behaviour.hideMenuItems('form' + person._id)">
+                        <i class="material-icons">close</i>
+                    </div>
+                </div>
+                <br>
+                <form class="form-body" method="post" action="/person/{{ person._id }}/update">
+                    <label>
+                        <input class="form-control" name="name" type="text" value="{{ person.name }}"
+                            placeholder="Name. . .">
+                    </label><br>
+                    <label class="btn btn-default btn-sm btn-file" title="Browse for a file to add...">
+                        Photo
+                        <input class="file-loading" type="file">
+                    </label><br>
+                    <label>
+                        <select name="parent" class="form-control">
+                            <option>&#60;No parent&#62;</option>
+                            <option>Some parent</option>
+                        </select>
+                    </label>
+                    <hr>
+                    <button class="btn btn-primary btn-sm" style="float: right" type="submit">Update</button>
+                </form>
+            </div>
+
             <!--{{ person.children }}-->
             <!--<tree *ngIf="person.children != 0" [tree]="person.children"></tree>-->
             <!--<table *ngIf="person.children" class="tree">-->
