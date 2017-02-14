@@ -1,16 +1,23 @@
 <table class="tree">
     <tr>
-        <td *ngFor="let person of tree" width="10">
+        <td *ngFor="let person of tree" width="10"
+            (mouseover)="behaviour.showMenuItems(person._id)" (mouseout)="behaviour.hideMenuItems(person._id)">
 
             <div class="circle" id="{{ person._id }}" data-id="{{ person.parent }}">
                 <div class="name">{{ person.name }}</div>
                 <img class="photo" src="{{ person.photo }}">
             </div>
+
+            <div class="menu-items" [hidden]="behaviour.isHidden(person._id)">
+                12332
+            </div>
+
             <div class="edit" [hidden]="true">
                 <label>
                     <input name="name" type="text" value="{{ person.name }}">
                 </label>
             </div>
+
             <!--{{ person.children }}-->
             <!--<tree *ngIf="person.children != 0" [tree]="person.children"></tree>-->
             <!--<table *ngIf="person.children" class="tree">-->
