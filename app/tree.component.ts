@@ -28,8 +28,8 @@ export class TreeComponent {
     protected initTree() {
         this._treeService.getTree().subscribe(
             success => this.handleData(success),
-            error   => alert("Error: \"" + (error.message || "unknown error") + "\""),
-            ()      => console.log('finished')
+            error   => alert("Error: \"" + (error.message || "unknown error") + "\"") || console.log(error),
+                ()  => console.log('finished')
         );
     }
 

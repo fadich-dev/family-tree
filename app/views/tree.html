@@ -18,7 +18,7 @@
                 </span>
             </div>
 
-            <div class="node-form" [hidden]="behaviour.isHidden('form' + person._id)">
+            <div class="node-form form-group row" [hidden]="behaviour.isHidden('form' + person._id)">
                 <div class="head">
                     <span class="title">Edit <strong>{{ person.name }}</strong>. . .</span>
                     <div class="close" (click)="behaviour.hideMenuItems('form' + person._id)">
@@ -27,11 +27,21 @@
                 </div>
                 <br>
                 <form class="form-body" method="post" action="/person/{{ person._id }}/update">
-                    <label for="name_{{ person._id }}">Name</label>
-                        <input class="form-control" name="name" id="name_{{ person._id }}"
-                               type="text" value="{{ person.name }}">
-                    <br>
-                    <input class="form-control" type="file">
+                    <label>
+                        <input class="form-control" name="name" type="text" value="{{ person.name }}"
+                            placeholder="Name. . .">
+                    </label><br>
+                    <label class="btn btn-default btn-sm btn-file" title="Browse for a file to add...">
+                        Photo
+                        <input class="file-loading" type="file">
+                    </label><br>
+                    <label>
+                        <select name="parent" class="form-control">
+                            <option>&#60;No parent&#62;</option>
+                            <option>Some parent</option>
+                        </select>
+                    </label>
+                    <hr>
                     <button class="btn btn-primary btn-sm" style="float: right" type="submit">Update</button>
                 </form>
             </div>
