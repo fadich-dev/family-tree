@@ -1,7 +1,8 @@
 <table class="tree">
     <tr>
-        <td *ngFor="let person of tree" width="10"
-            (mouseover)="behaviour.showMenuItems(person._id)" (mouseout)="behaviour.hideMenuItems(person._id)">
+        <td *ngFor="let person of tree" width="10" class="node"
+            (mouseover)="behaviour.showMenuItems(person._id)"
+            (mouseout)="behaviour.hideMenuItems(person._id)">
 
             <div class="circle" id="{{ person._id }}" data-id="{{ person.parent }}">
                 <div class="name">{{ person.name }}</div>
@@ -9,13 +10,29 @@
             </div>
 
             <div class="menu-items" [hidden]="behaviour.isHidden(person._id)">
-                12332
+                <span class="item-3 add">
+                    <i class="material-icons">add</i>
+                </span>
+                <span class="item-3 edit" (click)="behaviour.showMenuItems('form' + person._id)">
+                    <i class="material-icons">edit</i>
+                </span>
             </div>
 
-            <div class="edit" [hidden]="true">
-                <label>
-                    <input name="name" type="text" value="{{ person.name }}">
-                </label>
+            <div class="node-form" [hidden]="behaviour.isHidden('form' + person._id)">
+                <div class="head">
+                    <span class="title">Edit <strong>{{ person.name }}</strong>. . .</span>
+                    <div class="close" (click)="behaviour.hideMenuItems('form' + person._id)">
+                        <i class="material-icons">close</i>
+                    </div>
+                </div>
+                <br>
+                <div class="form-body">
+                    <label>
+                        <input name="name" type="text" value="{{ person.name }}">
+                    </label>
+                    <br>
+                    <input type="file">
+                </div>
             </div>
 
             <!--{{ person.children }}-->
