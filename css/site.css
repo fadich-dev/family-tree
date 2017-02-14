@@ -1,4 +1,5 @@
 body {
+    font-family:        'Roboto', serif;
     background-color:   rgba(25, 25, 25, 0.05);
 }
 
@@ -83,7 +84,7 @@ table {
 
 .menu-items {
     vertical-align:     bottom;
-    padding:            2% 5%;
+    padding:            0 5%;
     margin-left:        25%;
     margin-right:       25%;
     /*margin-bottom:      5%;*/
@@ -107,9 +108,7 @@ table {
     left:               25%;
     right:              25%;
     width:              50%;
-    /*min-width:          250px;*/
-    height:             30vh;
-    min-height:         300px;
+    height:             auto;
     border:             outset 1px;
     padding-bottom:     5%;
     padding-left:       5%;
@@ -141,9 +140,10 @@ table {
 }
 
 .node-form .title {
-    margin:             1% -5%;
+    margin:             1% 0;
     float:              left;
     text-transform:     none;
+    text-align:         left;
     height:             26px;
     width:              70%;
     overflow:           hidden;
