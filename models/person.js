@@ -10,9 +10,9 @@ function Person() {
 
     this.setAttributes = function (data) {
         if (!isEmpty(data)) {
-            this.name   = data.name   || null;
-            this.photo  = data.photo  || null;
-            this.parent = data.parent || null;
+            this.name   = data.name   ? data.name.trim()   : null;
+            this.photo  = data.photo  ? data.photo.trim()  : null;
+            this.parent = data.parent ? data.parent.trim() : null;
         }
         return this;
     };

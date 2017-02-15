@@ -1,21 +1,23 @@
 <table class="tree">
     <tr>
-        <td *ngFor="let person of tree" width="10" class="person"
-            (mouseover)="behaviour.showMenuItems(person._id)"
-            (mouseout)="behaviour.hideMenuItems(person._id)">
+        <td *ngFor="let person of tree" width="10" class="person">
 
-            <div class="circle" id="{{ person._id }}" data-id="{{ person.parent }}">
-                <div class="name">{{ person.name }}</div>
-                <img class="photo" src="{{ person.photo }}">
-            </div>
+            <div class="element"
+                (click)="behaviour.invert(person._id)">
+                <div class="circle" id="{{ person._id }}" data-id="{{ person.parent }}">
+                    <div class="name">{{ person.name }}</div>
+                    <img class="photo" src="{{ person.photo }}">
+                </div>
 
-            <div class="menu-items" [hidden]="behaviour.isHidden(person._id)">
-                <span class="item-3 add">
-                    <i class="material-icons">add</i>
-                </span>
-                <span class="item-3 edit" (click)="behaviour.showMenuItems('form' + person._id)">
-                    <i class="material-icons">edit</i>
-                </span>
+
+                <div class="menu-items" [hidden]="behaviour.isHidden(person._id)">
+                    <span class="item-3 edit" (click)="behaviour.showMenuItems('form' + person._id)">
+                        <i class="material-icons">edit</i>
+                    </span>
+                    <span class="item-3 add">
+                        <i class="material-icons">add_circle</i>
+                    </span>
+                </div>
             </div>
 
             <div class="modal-box" [hidden]="behaviour.isHidden('form' + person._id)">
@@ -30,50 +32,35 @@
                     <br>
                     <form class="form-body row" method="post" action="/person/{{ person._id }}/update">
                         <div class="col-md-2">
-                                <input class="form-control" name="name" type="text" value="{{ person.name }}"
-                                    placeholder="Name. . .">
+                            <input class="form-control" name="name" type="text" value="{{ person.name }}"
+                                [(ngModel)]="person.name" placeholder="Name. . ." required>
                         </div>
                         <div class="col-md-2">
-                                <select name="parent" class="form-control">
-                                    <option>&#60;No parent&#62;</option>
-                                    <option *ngFor="let node of nodes">{{ node.name }}</option>
-                                </select>
+                            <select name="parent" class="form-control" required>
+                                <option>&#60;No parent&#62;</option>
+                                <option *ngFor="let node of nodes" value="{{ node._id }}">{{ node.name }}</option>
+                            </select>
                         </div>
                         <div class="col-md-2" title="Browse for a file to add...">
                             Photo
-                            <input class="file-loading" type="file">
+                            <input class="file-loading" type="file" [(ngModel)]="person.photo">
                         </div>
                         <hr>
                         <div class="btn-group"  style="float: right">
-                            <button class="btn btn-primary btn-sm" type="submit">Update</button>
+                            <button class="btn btn-primary btn-sm" type="submit"
+                                [disabled]="person.name.length < 3">Update</button>
                         </div>
                     </form>
                 </div>
             </div>
 
+            <tree *ngIf="person.children != 0"
+                  [tree]='person.children'>
+            </tree>
             <!--{{ person.children }}-->
-            <!--<tree *ngIf="person.children != 0" [tree]="person.children"></tree>-->
-            <!--<table *ngIf="person.children" class="tree">-->
-                <!--<tr>-->
-                    <!--{{ person.children == 0 }}-->
-                    <!--<td *ngFor="#child of person.children">-->
-                        <!--<div class="circle" id="{{ child._id }}" data-id="{{ child.parent }}">-->
-                            <!--<div class="name">{{ child.name }}</div>-->
-                            <!--<img src="{{ child.photo }}">-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash;{{ view }}&ndash;&gt;-->
-                        <!--<table  *ngIf="child.children != 0" class="tree">-->
-                            <!--<tr>-->
-                                <!--<td *ngFor="#ch of child.children">-->
-                                    <!--<div class="circle" id="{{ ch._id }}" data-id="{{ ch.parent }}">-->
-                                        <!--<div class="name">{{ ch.name }}</div>-->
-                                        <!--<img src="{{ ch.photo }}">-->
-                                    <!--</div>-->
-                            <!--</tr>-->
-                        <!--</table>-->
-                    <!--</td>-->
-                <!--</tr>-->
-            <!--</table>-->
+            <!--<tree *ngIf="person.children != 0"-->
+                  <!--[tree]="person.children">-->
+            <!--</tree>-->
         </td>
     </tr>
 </table>

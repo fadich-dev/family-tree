@@ -5,7 +5,8 @@ import {BehaviouralService} from "./behavioural.service";
 @Component({
     selector: 'tree',
     templateUrl: '/app/views/tree.html',
-    providers: [TreeService, BehaviouralService]
+    directives: [TreeComponent],
+    providers:  [TreeService, BehaviouralService]
 })
 
 export class TreeComponent {
@@ -14,7 +15,7 @@ export class TreeComponent {
 
     public message: {type: "", text: ""};
 
-    @Input() tree;
+    @Input() tree: Array<any>;
 
     constructor (
         private _treeService: TreeService,
@@ -27,11 +28,11 @@ export class TreeComponent {
         }
     }
 
-    protected initTree() {
+    public initTree() {
         this._treeService.getTree().subscribe(
             success => this.handleData(success),
             error   => alert("Error: \"" + (error.message || "unknown error") + "\"") || console.log(error),
-                ()  => console.log('finished')
+                ()  => console.log('The tree initialization has been finished finished')
         );
     }
 
@@ -41,7 +42,7 @@ export class TreeComponent {
             alert(this.message.type + ": \"" + this.message.text  + "\"");
         } else {
             this.nodes = data.data.tree;
-            this.tree  = this.buildTree();
+            this.tree  = this.tree ? this.tree : this.buildTree();
         }
     }
 

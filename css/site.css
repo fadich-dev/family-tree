@@ -91,6 +91,13 @@ table {
     width:              100vw;
     height:             100vh;
     background:         rgba(0, 0, 0, 0.5);
+    transition:         150ms;
+}
+
+.overlay:hover,
+.overlay:focus {
+    transition:         300ms;
+    background:         rgba(0, 0, 0, 0.25);
 }
 
 .menu-items {
@@ -125,7 +132,14 @@ table {
     position:           fixed;
     z-index:            5;
     overflow:           auto;
-    background:         rgba(255, 255, 255, 0.9);
+    background:         rgba(255, 255, 255, 0.65);
+    transition:         300ms;
+}
+
+.node-form:hover,
+.node-form:focus {
+    background:         rgba(255, 255, 255, 0.95);
+    transition:         150ms;
 }
 
 .node-form .head {
