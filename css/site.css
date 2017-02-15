@@ -37,6 +37,7 @@ footer {
 }
 
 .circle {
+    margin-top:         1vh;
     height:             10vw;
     width:              10vw;
     border:             1px solid;
@@ -82,23 +83,36 @@ table {
     display:            block;
 }
 
+.overlay {
+    top:                0;
+    bottom:             0;
+    left:               0;
+    right:              0;
+    position:           fixed;
+    width:              100vw;
+    height:             100vh;
+    background:         rgba(0, 0, 0, 0.5);
+    transition:         150ms;
+}
+
+.overlay:hover,
+.overlay:focus {
+    transition:         300ms;
+    background:         rgba(0, 0, 0, 0.25);
+}
+
 .menu-items {
+    position:           relative;
     vertical-align:     bottom;
     padding:            0 5%;
-    margin-left:        25%;
-    margin-right:       25%;
-    /*margin-bottom:      5%;*/
+    margin-left:        0;
+    margin-right:       0;
+    z-index:            2;
 }
 
-.item-3 {
-    margin:             10%;
-    width:              30%;
-    cursor:             pointer;
-}
-
-.item-5 {
-    margin:             20%;
-    width:              50%;
+.item {
+    margin:             5%;
+    width:              10vw;
     cursor:             pointer;
 }
 
@@ -110,13 +124,18 @@ table {
     width:              50%;
     height:             auto;
     border:             outset 1px;
-    padding-bottom:     5%;
-    padding-left:       5%;
-    padding-right:      5%;
+    padding:            2% 5%;
     position:           fixed;
     z-index:            5;
     overflow:           auto;
-    background:         rgba(255, 255, 255, 0.9);
+    background:         rgba(255, 255, 255, 0.65);
+    transition:         300ms;
+}
+
+.node-form:hover,
+.node-form:focus {
+    background:         rgba(255, 255, 255, 0.95);
+    transition:         150ms;
 }
 
 .node-form .head {
@@ -127,7 +146,7 @@ table {
 }
 
 .node-form .head .close {
-    margin-top:         1%;
+    margin-top:         -3%;
     margin-right:       -10%;
     float:              right;
     cursor:             pointer;
@@ -150,4 +169,8 @@ table {
 }
 
 .node-form .form-body {
+}
+
+.fz-22 {
+    font-size:         22px;
 }

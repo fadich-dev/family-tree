@@ -10,8 +10,9 @@ exports.getTree = function (callback) {
                 return callback(false);
             }
 
-            nodes = doc;
-            return callback(buildTree(null));
+            return callback(doc);
+            // nodes = doc;
+            // return callback(buildTree(null));
         });
     } catch (e) {
         console.error(e.message);

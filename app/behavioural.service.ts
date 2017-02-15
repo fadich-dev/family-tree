@@ -15,4 +15,8 @@ export class BehaviouralService {
     public isHidden(key) {
         return this.vMenuItems[key] === undefined ? true : this.vMenuItems[key];
     }
+
+    public invert(key) {
+        this.vMenuItems[key] = this.vMenuItems[key] === undefined ? false : !this.vMenuItems[key];
+    }
 }
