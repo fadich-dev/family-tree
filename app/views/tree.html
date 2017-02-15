@@ -2,22 +2,20 @@
     <tr>
         <td *ngFor="let person of tree" width="10" class="person">
 
-            <div class="element"
-                (click)="behaviour.invert(person._id)">
+            <div class="element" (click)="behaviour.invert(person._id)">
                 <div class="circle" id="{{ person._id }}" data-id="{{ person.parent }}">
                     <div class="name">{{ person.name }}</div>
                     <img class="photo" src="{{ person.photo }}">
                 </div>
+            </div>
 
-
-                <div class="menu-items" [hidden]="behaviour.isHidden(person._id)">
-                    <span class="item-3 edit" (click)="behaviour.showMenuItems('form' + person._id)">
-                        <i class="material-icons">edit</i>
+            <div class="menu-items" [hidden]="behaviour.isHidden(person._id)">
+                    <span class="item add">
+                        <i class="material-icons fz-22">add_circle</i>
                     </span>
-                    <span class="item-3 add">
-                        <i class="material-icons">add_circle</i>
+                <span class="item edit" (click)="behaviour.showMenuItems('form' + person._id)">
+                        <i class="material-icons fz-22">edit</i>
                     </span>
-                </div>
             </div>
 
             <div class="modal-box" [hidden]="behaviour.isHidden('form' + person._id)">
@@ -57,10 +55,6 @@
             <tree *ngIf="person.children != 0"
                   [tree]='person.children'>
             </tree>
-            <!--{{ person.children }}-->
-            <!--<tree *ngIf="person.children != 0"-->
-                  <!--[tree]="person.children">-->
-            <!--</tree>-->
         </td>
     </tr>
 </table>
