@@ -18,9 +18,8 @@
                 </span>
             </div>
 
-            <div class="overlay"
-                 [hidden]="behaviour.isHidden('form' + person._id)"
-                 (click)="behaviour.hideMenuItems('form' + person._id)">
+            <div class="modal-box" [hidden]="behaviour.isHidden('form' + person._id)">
+                <div class="overlay" (click)="behaviour.hideMenuItems('form' + person._id)"></div>
                 <div class="node-form form-group row">
                     <div class="head">
                         <span class="title">Edit <strong>{{ person.name }}</strong>. . .</span>
@@ -29,23 +28,25 @@
                         </div>
                     </div>
                     <br>
-                    <form class="form-body" method="post" action="/person/{{ person._id }}/update">
-                        <label>
-                            <input class="form-control" name="name" type="text" value="{{ person.name }}"
-                                placeholder="Name. . .">
-                        </label><br>
-                        <label class="btn btn-default btn-sm btn-file" title="Browse for a file to add...">
+                    <form class="form-body row" method="post" action="/person/{{ person._id }}/update">
+                        <div class="col-md-2">
+                                <input class="form-control" name="name" type="text" value="{{ person.name }}"
+                                    placeholder="Name. . .">
+                        </div>
+                        <div class="col-md-2">
+                                <select name="parent" class="form-control">
+                                    <option>&#60;No parent&#62;</option>
+                                    <option *ngFor="let node of nodes">{{ node.name }}</option>
+                                </select>
+                        </div>
+                        <div class="col-md-2" title="Browse for a file to add...">
                             Photo
                             <input class="file-loading" type="file">
-                        </label><br>
-                        <label>
-                            <select name="parent" class="form-control">
-                                <option>&#60;No parent&#62;</option>
-                                <option *ngFor="let node of nodes">{{ node.name }}</option>
-                            </select>
-                        </label>
+                        </div>
                         <hr>
-                        <button class="btn btn-primary btn-sm" style="float: right" type="submit">Update</button>
+                        <div class="btn-group"  style="float: right">
+                            <button class="btn btn-primary btn-sm" type="submit">Update</button>
+                        </div>
                     </form>
                 </div>
             </div>

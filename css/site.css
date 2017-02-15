@@ -83,14 +83,14 @@ table {
 }
 
 .overlay {
-    top:               0;
-    bottom:            0;
-    left:              0;
-    right:             0;
-    position:          fixed;
-    width:             100vw;
-    height:            100vh;
-    background:        rgba(0, 0, 0, 0.5);
+    top:                0;
+    bottom:             0;
+    left:               0;
+    right:              0;
+    position:           fixed;
+    width:              100vw;
+    height:             100vh;
+    background:         rgba(0, 0, 0, 0.5);
 }
 
 .menu-items {
@@ -121,9 +121,7 @@ table {
     width:              50%;
     height:             auto;
     border:             outset 1px;
-    padding-bottom:     5%;
-    padding-left:       5%;
-    padding-right:      5%;
+    padding:            2% 5%;
     position:           fixed;
     z-index:            5;
     overflow:           auto;
@@ -138,7 +136,7 @@ table {
 }
 
 .node-form .head .close {
-    margin-top:         1%;
+    margin-top:         -3%;
     margin-right:       -10%;
     float:              right;
     cursor:             pointer;
