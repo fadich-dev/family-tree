@@ -10,6 +10,8 @@ import {BehaviouralService} from "./behavioural.service";
 
 export class TreeComponent {
 
+    protected nodes: Array<any> = [];
+
     public message: {type: "", text: ""};
 
     @Input() tree;
@@ -38,7 +40,23 @@ export class TreeComponent {
         if (data.data.tree === false) {
             alert(this.message.type + ": \"" + this.message.text  + "\"");
         } else {
-            this.tree = data.data.tree;
+            this.nodes = data.data.tree;
+            this.tree  = this.buildTree();
         }
+    }
+
+    protected buildTree(parent = null) {
+        let tree = [];
+        let i = 0;
+
+        for (let j = this.nodes.length - 1; j >= 0; j--) {
+            if (this.nodes[j].parent == parent) {
+                tree[i] = this.nodes[j];
+                tree[i].children = this.buildTree(tree[i]._id);
+                i++;
+            }
+        }
+
+        return tree;
     }
 }
