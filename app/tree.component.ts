@@ -1,11 +1,12 @@
 import { Component, Input } from "angular2/core";
 import { TreeService } from "./tree.service";
 import {BehaviouralService} from "./behavioural.service";
+import {PersonFormComponent} from "./person-form.component";
 
 @Component({
     selector: 'tree',
     templateUrl: '/app/views/tree.html',
-    directives: [TreeComponent],
+    directives: [TreeComponent, PersonFormComponent],
     providers:  [TreeService, BehaviouralService]
 })
 
@@ -29,11 +30,14 @@ export class TreeComponent {
     }
 
     public initTree() {
-        this._treeService.getTree().subscribe(
-            success => this.handleData(success),
-            error   => alert("Error: \"" + (error.message || "unknown error") + "\"") || console.log(error),
-                ()  => console.log('The tree initialization has been finished finished')
-        );
+        if (!this.tree) {
+            this._treeService.getTree().subscribe(
+                success => this.handleData(success),
+                error => alert("Error: \"" + (error.message || "unknown error") + "\"") || console.log(error),
+                () => console.log('The tree initialization has been finished finished') ||
+                      console.warn("Request has been sent")
+            );
+        }
     }
 
     protected handleData(data) {

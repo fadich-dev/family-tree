@@ -13,7 +13,6 @@ export class TreeService {
     }
 
     public getTree() {
-
         return this.http
             .post(this.getTreeUrl, '')
             .map(res => res.json());

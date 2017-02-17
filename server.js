@@ -70,7 +70,7 @@ app.post('/person/create', function(req, res) {
             if (person.setAttributes(req.body).save()) {
                 return res.send(send({type: "success", text: "Node successfully created"}));
             }
-            res.statusCode = 400;
+            // res.statusCode = 400;
             return res.send(send(
                 {
                     type: "warning",
@@ -103,11 +103,12 @@ app.post('/person/:id/update', function(req, res) {
     person.get(req.params.id, function (person) {
         if (person) {
             // TODO: do not forget about photo!
-            if (person.setAttributes(req.body).save()) {
+            if (Object.keys(req.body).length && person.setAttributes(req.body).save()) {
+                console.log(req.body);
                 return res.send(send({type: "success", text: "Node successfully updates"}));
             }
-            res.statusCode = 400;
-            res.send(send(
+            // res.statusCode = 400;
+            return res.send(send(
                 {
                     type: "warning",
                     text: "Node cannot be updated. Maybe, data is invalid. Check it for the correctness and try again"
@@ -115,7 +116,7 @@ app.post('/person/:id/update', function(req, res) {
                 {error: person.getErrors()}
             ));
         }
-        return res.send(send({error: "Person was not found"}));
+        return res.send(send({type: "error", text: "Person was not found"}));
     });
 });
 
@@ -129,7 +130,7 @@ app.post('/person/:id/delete', function(req, res) {
         res.end();
     }
 
-    res.statusCode = 400;
+    // res.statusCode = 400;
     res.send(send(
         {
             type: "warning",
