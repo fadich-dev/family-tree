@@ -68,7 +68,7 @@ app.post('/person/create', function(req, res) {
         if (person) {
             // TODO: do not forget about photo!
             if (person.setAttributes(req.body).save()) {
-                return res.send(send({type: "success", text: "Node successfully created"}));
+                return res.send(send({type: "success", text: "Node created successfully"}));
             }
             // res.statusCode = 400;
             return res.send(send(
@@ -104,7 +104,7 @@ app.post('/person/:id/update', function(req, res) {
         if (person) {
             // TODO: do not forget about photo!
             if (Object.keys(req.body).length && person.setAttributes(req.body).save()) {
-                return res.send(send({type: "success", text: "Node successfully updates"}));
+                return res.send(send({type: "success", text: "Node successfully"}));
             }
             // res.statusCode = 400;
             return res.send(send(
