@@ -15,8 +15,8 @@
                        [(ngModel)]="person.name" placeholder="Name. . ." required>
             </div>
             <div class="col-md-2">
-                <select [(ngModel)]="person.parent" class="form-control" required>
-                    <option [value]="null">&#60;No parent&#62;</option>
+                <select [(ngModel)]="person.parent" class="form-control">
+                    <option [value]="0">&#60;No parent&#62;</option>
                     <option *ngFor="let node of nodes" [value]="node._id"
                             [selected]="node._id==person.parent">{{ node.name }}</option>
                 </select>

@@ -104,7 +104,6 @@ app.post('/person/:id/update', function(req, res) {
         if (person) {
             // TODO: do not forget about photo!
             if (Object.keys(req.body).length && person.setAttributes(req.body).save()) {
-                console.log(req.body);
                 return res.send(send({type: "success", text: "Node successfully updates"}));
             }
             // res.statusCode = 400;
