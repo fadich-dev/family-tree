@@ -1,18 +1,34 @@
 var db       = require('../db');
 var ObjectID = require('mongodb').ObjectID;
+var tree     = require('./tree');
 
 function Person() {
 
-    this._id    = null;
-    this.name   = null;
-    this.photo  = null;
-    this.parent = null;
+    this._id    = undefined;
+    this.name   = undefined;
+    this.photo  = undefined;
+    this.parent = undefined;
 
     this.setAttributes = function (data) {
         if (!isEmpty(data)) {
-            this.name   = data.name   ? data.name.trim()   : null;
-            this.photo  = data.photo  ? data.photo.trim()  : null;
-            this.parent = data.parent ? data.parent.trim() : null;
+            try {
+                this.name = data.name ? data.name.trim() : null;
+            } catch (e) {
+                errors.name = "Error handling";
+                console.error(e);
+            }
+            try {
+                this.photo  = data.photo  ? data.photo.trim()  : null;
+            } catch (e) {
+                errors.photo = "Error handling";
+                console.error(e);
+            }
+            try {
+                this.parent = data.parent ? data.parent.trim() : null;
+            } catch (e) {
+                errors.parent = "Error handling";
+                console.error(e);
+            }
         }
         return this;
     };
@@ -30,8 +46,25 @@ function Person() {
             errors.photo = "Attribute should be a string";
         }
 
+        var isParent = function () {
+            return db.get().collection('person').findOne({parent: null});
+        };
+        var isPerson = function (parentId) {
+            return db.get().collection('person').findOne({_id: ObjectID(parentId)});
+        };
+        var inBranch = function (person) {
+            return false;
+        };
+
+        console.log(inBranch());
         if (this.parent && typeof this.parent != "string") {
             errors.parent = "Attribute should be a string";
+        } else if (!this.parent && isParent()) {
+            errors.parent = "A parent node exists already";
+        } else if (this.parent && !isPerson(this.parent)) {
+            errors.parent = "There is no person having specified ID";
+        } else if (this.parent && inBranch(this)) {
+            errors.parent = "Child node cannot be specified as parent";
         }
 
         return !this.hasErrors();
