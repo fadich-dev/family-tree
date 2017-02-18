@@ -2,12 +2,13 @@ import { Component, Input } from "angular2/core";
 import { TreeService } from "./tree.service";
 import {BehaviouralService} from "./behavioural.service";
 import {PersonFormComponent} from "./person-form.component";
+import {Person} from "./person";
 
 @Component({
     selector: 'tree',
     templateUrl: '/app/views/tree.html',
     directives: [TreeComponent, PersonFormComponent],
-    providers:  [TreeService, BehaviouralService]
+    providers:  [TreeService, BehaviouralService, Person]
 })
 
 export class TreeComponent {
@@ -20,7 +21,8 @@ export class TreeComponent {
 
     constructor (
         private _treeService: TreeService,
-        public  behaviour: BehaviouralService
+        public  behaviour: BehaviouralService,
+        public  newPerson: Person
     ) {
         try {
             this.initTree();

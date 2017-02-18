@@ -2,27 +2,37 @@
     <tr>
         <td *ngFor="let person of tree" width="10" class="person">
 
-            <div class="element" (click)="behaviour.invert(person._id)">
+            <div class="element"
+                 (mouseover)="behaviour.showMenuItems(person._id)"
+                 (mouseout)="behaviour.hideMenuItems(person._id)">
                 <div class="circle" id="{{ person._id }}" data-id="{{ person.parent }}">
                     <div class="name">{{ person.name }}</div>
                     <img class="photo" src="{{ person.photo }}">
                 </div>
-            </div>
 
-            <div class="menu-items" [hidden]="behaviour.isHidden(person._id)">
-                    <span class="item add">
+                <div class="menu-items" [hidden]="behaviour.isHidden(person._id)">
+                    <span class="item add" (click)="behaviour.showMenuItems('modal-add')">
                         <i class="material-icons fz-22">add_circle</i>
                     </span>
-                <span class="item edit" (click)="behaviour.showMenuItems('form' + person._id)">
+                    <span class="item edit" (click)="behaviour.showMenuItems('form' + person._id)">
                         <i class="material-icons fz-22">edit</i>
                     </span>
+                </div>
             </div>
 
             <person-form-modal
                 [nodes]="nodes"
                 [person]="person"
-                [behaviour]="behaviour">
+                [behaviour]="behaviour"
+                [modalId]="'form' + person._id">
             </person-form-modal>
+
+            <!--<person-form-modal-->
+                <!--[nodes]="nodes"-->
+                <!--[person]="newPerson"-->
+                <!--[behaviour]="behaviour"-->
+                <!--[modalId]="'modal-add'">-->
+            <!--</person-form-modal>-->
 
             <tree *ngIf="person.children != 0"
                   [tree]='person.children'>

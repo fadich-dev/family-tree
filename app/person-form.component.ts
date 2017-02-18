@@ -1,5 +1,5 @@
 import { Component, Input } from "angular2/core";
-import { Http, RequestOptions, BaseRequestOptions } from 'angular2/http';
+import { Http, RequestOptions } from 'angular2/http';
 import 'rxjs/add/operator/map';
 import {Headers} from "angular2/src/http/headers";
 
@@ -14,6 +14,7 @@ export class PersonFormComponent {
     @Input() nodes;
     @Input() person;
     @Input() behaviour;
+    @Input() modalId;
 
     constructor (private http: Http) {  }
 

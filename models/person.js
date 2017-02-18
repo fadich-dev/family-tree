@@ -14,19 +14,19 @@ function Person() {
             try {
                 this.name = data.name ? data.name.trim() : null;
             } catch (e) {
-                errors.name = "Error handling";
+                // errors.name = "Error handling";
                 console.error(e);
             }
             try {
                 this.photo  = data.photo  ? data.photo.trim()  : null;
             } catch (e) {
-                errors.photo = "Error handling";
+                // errors.photo = "Error handling";
                 console.error(e);
             }
             try {
                 this.parent = data.parent ? data.parent.trim() : null;
             } catch (e) {
-                errors.parent = "Error handling";
+                // errors.parent = "Error handling";
                 console.error(e);
             }
         }

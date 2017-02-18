@@ -36,6 +36,10 @@ footer {
     font-style:         italic;
 }
 
+.element {
+    height:             12vw;
+}
+
 .circle {
     margin-top:         1vh;
     height:             10vw;

@@ -1,27 +1,28 @@
-<div class="modal-box" [hidden]="behaviour.isHidden('form' + person._id)">
-    <div class="overlay" (click)="behaviour.hideMenuItems('form' + person._id)"></div>
+<div class="modal-box" [hidden]="behaviour.isHidden(modalId)">
+    <div class="overlay" (click)="behaviour.hideMenuItems(modalId)"></div>
     <div class="node-form form-group row">
         <div class="head">
+
             <span class="title">Edit <strong>{{ person.name }}</strong>. . .</span>
-            <div class="close" (click)="behaviour.hideMenuItems('form' + person._id)">
+            <div class="close" (click)="behaviour.hideMenuItems(modalId)">
                 <i class="material-icons">close</i>
             </div>
         </div>
         <br>
         <form class="form-body row" method="post" action="/person/{{ person._id }}/update"
               (submit)="submitForm()">
-            <div class="col-md-2">
+            <div class="col-md-5">
                 <input class="form-control" name="name" type="text" [value]="person.name"
                        [(ngModel)]="person.name" placeholder="Name. . ." required>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-5">
                 <select [(ngModel)]="person.parent" class="form-control">
                     <option [value]="0">&#60;No parent&#62;</option>
                     <option *ngFor="let node of nodes" [value]="node._id"
                             [selected]="node._id==person.parent">{{ node.name }}</option>
                 </select>
             </div>
-            <div class="col-md-2" title="Browse for a file to add...">
+            <div class="col-md-5" title="Browse for a file to add...">
                 Photo
                 <input class="file-loading" type="file" [(ngModel)]="person.photo">
             </div>

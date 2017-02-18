@@ -68,7 +68,7 @@ app.post('/person/create', function(req, res) {
         if (person) {
             // TODO: do not forget about photo!
             if (person.setAttributes(req.body).save()) {
-                return res.send(send({type: "success", text: "Node created successfully"}));
+                return res.send(send({type: "success", text: "Node created successfully"}));
             }
             // res.statusCode = 400;
             return res.send(send(
@@ -104,7 +104,7 @@ app.post('/person/:id/update', function(req, res) {
         if (person) {
             // TODO: do not forget about photo!
             if (Object.keys(req.body).length && person.setAttributes(req.body).save()) {
-                return res.send(send({type: "success", text: "Node successfully"}));
+                return res.send(send({type: "success", text: "Node updated successfully"}));
             }
             // res.statusCode = 400;
             return res.send(send(
@@ -125,7 +125,7 @@ app.post('/person/:id/delete', function(req, res) {
 
     var person = person.get(req.params.id);
     if (person.delete()) {
-        res.send(send({type: "success", text: "Node (branch) successfully deleted"}));
+        res.send(send({type: "success", text: "Node (branch) deleted successfully"}));
         res.end();
     }
 
